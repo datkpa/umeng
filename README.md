@@ -6,6 +6,16 @@
 - 在项目配置中通过上一步创建的配置项填入应用的 AppKey 和 渠道名称
 - 安卓平台添加 Java 单例 `com/geequlim/gdutils/umeng/Umeng` 到项目配置中
 
+### 项目设置配置项
+
+| 属性          | 类型   | 描述             |
+| ------------- | ------ | ---------------- |
+| umeng/app_key | String | 友盟的 App Key   |
+| umeng/channel | String | 渠道名称         |
+| umeng/debug   | bool   | SDK 调试模式开关 |
+
+
+
 ### API
 
 `Umeng` 单例可通过 `Engine.get_singleton("Umeng")` 获取到，它提供下表中的方法。具体使用说明请参照 [友盟SDK文档](https://developer.umeng.com/docs)。
