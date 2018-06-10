@@ -35,6 +35,7 @@ public class Umeng extends Godot.SingletonBase {
 		final String appKey = GodotLib.getGlobal("umeng/app_key.Android");
 		final String channel = GodotLib.getGlobal("umeng/channel.Android");
 		final boolean debug = GodotLib.getGlobal("umeng/debug.Android").equals("True");
+		final boolean one_scene = GodotLib.getGlobal("umeng/one_scene.Android").equals("True");
 
 		UMConfigure.setLogEnabled(debug);
 		if (debug) {
@@ -42,6 +43,7 @@ public class Umeng extends Godot.SingletonBase {
 			Log.d("Umeng", "Device Info: " + Utils.getDeviceInfo(p_activity));
 		}
 
+		MobclickAgent.openActivityDurationTrack(one_scene);
 		UMConfigure.init(p_activity, appKey, channel, UMConfigure.DEVICE_TYPE_PHONE, null);
 
 		//register class name and functions to bind
@@ -103,7 +105,10 @@ public class Umeng extends Godot.SingletonBase {
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				MobclickAgent.onEvent(activity, id, label);
+				if (label == null || label.length() == 0)
+					MobclickAgent.onEvent(activity, id);
+				else
+					MobclickAgent.onEvent(activity, id, label);
 			}
 		});
 	}
